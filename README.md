@@ -1,5 +1,7 @@
 # holidays.rest Python SDK
 
+[![Test](https://github.com/holidays-rest/sdk-py/actions/workflows/test.yml/badge.svg)](https://github.com/holidays-rest/sdk-py/actions/workflows/test.yml)
+[![Publish](https://github.com/holidays-rest/sdk-py/actions/workflows/publish.yml/badge.svg)](https://github.com/holidays-rest/sdk-py/actions/workflows/publish.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/867a4c6a86084be4b71516103872c069)](https://app.codacy.com/gh/holidays-rest/sdk-py/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/867a4c6a86084be4b71516103872c069)](https://app.codacy.com/gh/holidays-rest/sdk-py/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
