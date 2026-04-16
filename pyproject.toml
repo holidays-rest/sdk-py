@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "holidays-rest"
+version = "1.0.0"
+description = "Official Python SDK for the holidays.rest API"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+keywords = ["holidays", "public-holidays", "calendar", "api", "sdk"]
+dependencies = [
+    "httpx>=0.27",
+]
+
+[project.urls]
+Homepage = "https://holidays.rest"
+Documentation = "https://docs.holidays.rest"
+Repository = "https://github.com/msdundar/holidays.rest"
+
+[tool.hatch.build.targets.wheel]
+packages = ["holidays_rest"]
