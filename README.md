@@ -1,6 +1,8 @@
 # holidays.rest Python SDK
 
-Official Python SDK for the [holidays.rest](https://holidays.rest) API.
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/867a4c6a86084be4b71516103872c069)](https://app.codacy.com/gh/holidays-rest/sdk-py/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
+Official Python SDK for the [holidays.rest](https://www.holidays.rest) API.
 
 ## Requirements
 
@@ -21,7 +23,7 @@ from holidays_rest import HolidaysClient
 with HolidaysClient(api_key="YOUR_API_KEY") as client:
     holidays = client.holidays(country="US", year=2024)
     for h in holidays:
-        print(h.date, h.name)
+        print(h.date, h.name.get("en"))
 ```
 
 Get an API key at [holidays.rest/dashboard](https://www.holidays.rest/dashboard).
@@ -131,13 +133,22 @@ All responses are deserialized into dataclasses.
 ```python
 @dataclass
 class Holiday:
-    name: str
-    date: str
-    type: str
-    country: str
-    region: str
-    religion: str
-    language: str
+    country_code: str          # e.g. "DE"
+    country_name: str          # e.g. "Germany"
+    date: str                  # "YYYY-MM-DD"
+    name: dict[str, str]       # {"en": "New Year's Day", "de": "Neujahr", ...}
+    is_national: bool
+    is_religious: bool
+    is_local: bool
+    is_estimate: bool          # True when the date is algorithmically estimated
+    day: DayInfo               # day-of-week, actual vs observed
+    religion: str              # e.g. "Christianity", empty string if not applicable
+    regions: list[str]         # subdivision codes, e.g. ["BW", "BY"]
+
+@dataclass
+class DayInfo:
+    actual: str                # day the holiday falls on, e.g. "Thursday"
+    observed: str              # day it is observed (may differ for weekend holidays)
 
 @dataclass
 class Country:

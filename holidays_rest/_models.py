@@ -5,27 +5,53 @@ from typing import Any
 
 
 @dataclass
+class DayInfo:
+    actual: str
+    observed: str
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> DayInfo:
+        return cls(
+            actual=data.get("actual", ""),
+            observed=data.get("observed", ""),
+        )
+
+
+@dataclass
 class Holiday:
-    name: str
+    country_code: str
+    country_name: str
     date: str
-    type: str
-    country: str
-    region: str = ""
-    religion: str = ""
-    language: str = ""
+    name: dict[str, str]
+    is_national: bool
+    is_religious: bool
+    is_local: bool
+    is_estimate: bool
+    day: DayInfo
+    religion: str
+    regions: list[str]
     extra: dict[str, Any] = field(default_factory=dict, repr=False)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> Holiday:
-        known = {"name", "date", "type", "country", "region", "religion", "language"}
+        known = {
+            "country_code", "country_name", "date", "name",
+            "isNational", "isReligious", "isLocal", "isEstimate",
+            "day", "religion", "regions",
+        }
+        raw_day = data.get("day", {})
         return cls(
-            name=data.get("name", ""),
+            country_code=data.get("country_code", ""),
+            country_name=data.get("country_name", ""),
             date=data.get("date", ""),
-            type=data.get("type", ""),
-            country=data.get("country", ""),
-            region=data.get("region", ""),
+            name=data.get("name", {}),
+            is_national=data.get("isNational", False),
+            is_religious=data.get("isReligious", False),
+            is_local=data.get("isLocal", False),
+            is_estimate=data.get("isEstimate", False),
+            day=DayInfo.from_dict(raw_day) if isinstance(raw_day, dict) else DayInfo("", ""),
             religion=data.get("religion", ""),
-            language=data.get("language", ""),
+            regions=data.get("regions", []),
             extra={k: v for k, v in data.items() if k not in known},
         )
 
